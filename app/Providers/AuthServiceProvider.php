@@ -30,7 +30,7 @@ class AuthServiceProvider extends ServiceProvider
             return $user->role == 1;
         });
 
-        Gate::define('moderator', function (User $user) {
+        Gate::define('owner', function (User $user) {
             return $user->role == 2;
         });
 

@@ -10,6 +10,6 @@
     </x-slot>
 
     <div>
-        <livewire:create-user action="updateUser" :userId="request()->userId" />
+        <livewire:admin.create-user action="updateUser" :userId="request()->userId" />
     </div>
 </x-app-layout>

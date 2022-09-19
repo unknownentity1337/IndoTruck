@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Admin;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -9,10 +9,10 @@ use Livewire\Component;
 class CreateUser extends Component
 {
     public $user;
-    // public $role;
     public $userId;
     public $action;
     public $button;
+
 
     protected function getRules()
     {
@@ -54,7 +54,6 @@ class CreateUser extends Component
                 "email" => $this->user->email,
                 "role" => $this->user->role
             ]);
-
         $this->emit('saved');
     }
 
@@ -69,6 +68,6 @@ class CreateUser extends Component
 
     public function render()
     {
-        return view('livewire.create-user');
+        return view('livewire.admin.create-user');
     }
 }

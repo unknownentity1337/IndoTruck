@@ -8,7 +8,33 @@
         </div>
     </x-slot>
 
-    <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-        <x-jet-welcome />
-    </div>
+    @can('owner')
+        <div class="row">
+            <div class="col-12 col-md-6 col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Owner</h4>
+                    </div>
+                    <div class="card-body">
+                        <p>Owner</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endcan
+
+    @can('admin')
+        <div class="row">
+            <div class="col-12 col-md-6 col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Admin</h4>
+                    </div>
+                    <div class="card-body">
+                        <p>Admin</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endcan
 </x-app-layout>

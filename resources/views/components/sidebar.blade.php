@@ -1,22 +1,58 @@
 @php
-$links = [
-    [
-        'href' => 'admin.dashboard',
-        'text' => 'Dashboard',
-        'is_multi' => false,
-    ],
-    [
-        'href' => [
-            [
-                'section_text' => 'User',
-                'section_list' => [['href' => 'admin.user-list', 'text' => 'Data User'], ['href' => 'admin.user-new', 'text' => 'Buat User']],
-            ],
+if (auth()->user()->role == 1) {
+    $links = [
+        [
+            'href' => 'admin.dashboard',
+            'text' => 'Dashboard',
+            'is_multi' => false,
         ],
-        'text' => 'User & Owner',
-        'is_multi' => true,
-    ],
-];
-$navigation_links = array_to_object($links);
+        [
+            'href' => [
+                [
+                    'section_text' => 'User',
+                    'section_list' => [['href' => 'admin.user-list', 'text' => 'Data User'], ['href' => 'admin.user-new', 'text' => 'Buat User']],
+                    'section_icon' => 'fas fa-users',
+                ],
+                [
+                    'section_text' => 'Owner',
+                    'section_list' => [['href' => 'admin.owner-list', 'text' => 'Data Owner'], ['href' => 'admin.owner-new', 'text' => 'Buat Owner']],
+                    'section_icon' => 'fas fa-box',
+                ],
+            ],
+            'text' => 'Fitur Admin',
+            'is_multi' => true,
+        ],
+    ];
+    $navigation_links = array_to_object($links);
+} elseif (auth()->user()->role == 2) {
+    $links = [
+        [
+            'href' => 'owner.dashboard',
+            'text' => 'Owner Dashboard',
+            'is_multi' => false,
+        ],
+    ];
+    $navigation_links = array_to_object($links);
+} else {
+    $links = [
+        [
+            'href' => 'admin.dashboard',
+            'text' => 'User Dashboard',
+            'is_multi' => false,
+        ],
+        [
+            'href' => [
+                [
+                    'section_text' => 'User',
+                    'section_list' => [['href' => 'admin.user-list', 'text' => 'Data User'], ['href' => 'admin.user-new', 'text' => 'Buat User']],
+                ],
+            ],
+            'text' => 'Fitur',
+            'is_multi' => true,
+        ],
+    ];
+    $navigation_links = array_to_object($links);
+}
 @endphp
 
 <div class="main-sidebar">
@@ -26,7 +62,8 @@ $navigation_links = array_to_object($links);
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
             <a href="{{ route('admin.dashboard') }}">
-                <img class="d-inline-block" width="32px" height="30.61px" src="" alt="">
+                <img class="d-inline-block" width="32px" height="30.61px" src="{{ asset('assets/img/logo.png') }}"
+                    alt="">
             </a>
         </div>
         @foreach ($navigation_links as $link)
@@ -51,7 +88,8 @@ $navigation_links = array_to_object($links);
 
                         <li class="dropdown {{ $is_active ? 'active' : '' }}">
                             <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
-                                    class="fas fa-chart-bar"></i> <span>{{ $section->section_text }}</span></a>
+                                    class="{{ $section->section_icon }}"></i>
+                                <span>{{ $section->section_text }}</span></a>
                             <ul class="dropdown-menu">
                                 @foreach ($section->section_list as $child)
                                     <li class="{{ Request::routeIs($child->href) ? 'active' : '' }}"><a class="nav-link"

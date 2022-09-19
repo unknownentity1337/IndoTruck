@@ -10,9 +10,9 @@ class Redirects extends Controller
     public function dashboard()
     {
         if (auth()->user()->role == 1) {
-            return redirect()->route('admin');
+            return redirect()->route('admin.dashboard');
         } else if (auth()->user()->role == 2) {
-            return redirect()->route('owner');
+            return redirect()->route('owner.dashboard');
         } else {
             return redirect()->route('dashboard');
         }

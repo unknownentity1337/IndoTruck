@@ -27,6 +27,7 @@
             <div class="form-group col-span-6 sm:col-span-5">
                 <x-jet-label for="role" value="{{ __('Role') }}" />
                 <select wire:model.defer="user.role" id="role" class="mt-1 block w-full form-control shadow-none">
+                    <option value="">-- SELECT ROLE --</option>
                     <option value="0">User</option>
                     <option value="1">Admin</option>
                     <option value="2">Owner</option>

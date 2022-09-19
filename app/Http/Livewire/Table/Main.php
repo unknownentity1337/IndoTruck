@@ -12,7 +12,6 @@ class Main extends Component
 
     public $model;
     public $name;
-
     public $perPage = 10;
     public $sortField = "id";
     public $sortAsc = false;
@@ -53,7 +52,6 @@ class Main extends Component
     public function render()
     {
         $data = $this->get_pagination_data();
-
         return view($data['view'], $data);
     }
 }
