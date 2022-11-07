@@ -18,8 +18,10 @@ class CreateOwnersTable extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->bigInteger('current_users')->default(0);
             $table->bigInteger('max_users')->default(0);
-            $table->timestamp('expired_at');
+            $table->bigInteger('phone_number')->unique();
+            $table->string('company_name');
             $table->timestamps();
+            $table->timestamp('expired_at');
         });
     }
 

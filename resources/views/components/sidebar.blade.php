@@ -25,13 +25,35 @@ if (auth()->user()->role == 1) {
     ];
     $navigation_links = array_to_object($links);
 } elseif (auth()->user()->role == 2) {
-    $links = [
-        [
-            'href' => 'owner.dashboard',
-            'text' => 'Owner Dashboard',
-            'is_multi' => false,
-        ],
-    ];
+    $owner = App\Models\Owner::where('user_id', auth()->user()->id)->first();
+    if ($owner) {
+        $links = [
+            [
+                'href' => 'owner.dashboard',
+                'text' => 'Owner Dashboard',
+                'is_multi' => false,
+            ],
+            [
+                'href' => [
+                    [
+                        'section_text' => 'Vendor',
+                        'section_list' => [['href' => 'owner.vendor-list', 'text' => 'Data Vendor'], ['href' => 'owner.vendor-new', 'text' => 'Buat Vendor']],
+                        'section_icon' => 'fas fa-users',
+                    ],
+                ],
+                'text' => 'Fitur Owner',
+                'is_multi' => true,
+            ],
+        ];
+    } else {
+        $links = [
+            [
+                'href' => 'owner.dashboard',
+                'text' => 'Owner Dashboard',
+                'is_multi' => false,
+            ],
+        ];
+    }
     $navigation_links = array_to_object($links);
 } else {
     $links = [

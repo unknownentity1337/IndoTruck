@@ -18,13 +18,20 @@ class CreateOwner extends Component
     protected function getRules()
     {
         $rules = ($this->action == "createOwner") ? [
-            'owner.user_id' => 'required|unique:owners,user_id'
-        ] :
+            'owner.user_id' => 'required|unique:owners,user_id',
+            'owner.phone_number' => 'required|unique:owners,phone_number',
+        ] : [
+            'owner.phone_number' => 'required|unique:owners,phone_number,' . $this->ownerId,
+        ];
+
+        return array_merge(
             [
+                'owner.company_name' => 'required',
                 'owner.max_users' => 'required',
                 'owner.expired_at' => 'required'
-            ];
-        return $rules;
+            ],
+            $rules
+        );
     }
 
     public function createOwner()
@@ -44,6 +51,8 @@ class CreateOwner extends Component
             ->where('id', $this->ownerId)
             ->update([
                 "max_users" => $this->owner->max_users,
+                "phone_number" => $this->owner->phone_number,
+                "company_name" => $this->owner->company_name,
                 "expired_at" => $this->owner->expired_at,
             ]);
         $this->emit('saved');
